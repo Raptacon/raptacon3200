@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "raptacon3200"
+version = "0.0.3"
+description = "A FRC Raptacon 3200 Robot Common Library"
+authors = [
+  "Chris Hirsch <chris@base2technology.com>"
+]
+maintainers = [
+]
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.12",
+    "Development Status :: 3 - Alpha"
+]
+
+homepage = "https://github.com/raptacon/raptacon3200"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/raptacon/raptacon3200/issues"
+
+[tool.poetry.dependencies]
+python = ">3.10"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.3.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.semantic_release]
+version_variable = ["raptacon3200/__init__.py:__version__"]
+version_toml = ["pyproject.toml:tool.poetry.version"]
+branch = "main"
+upload_to_pypi = false
+upload_to_release = true
+build_command = "pip install poetry && poetry build"
+commit_message = "chore(release): bump version to {version}"
