@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "raptacon3200"
-version = "0.0.3"
+version = "0.0.4"
 description = "A FRC Raptacon 3200 Robot Common Library"
 authors = [
   "Chris Hirsch <chris@base2technology.com>"
