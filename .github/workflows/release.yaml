@@ -34,6 +34,7 @@ jobs:
           curl -sSL https://install.python-poetry.org | python3 -
           # TODO Change to PYPI_TOKEN for PR
           # poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+          poetry config repositories.testpypi https://test.pypi.org/legacy/
           poetry config pypi-token.testpypi ${{ secrets.TEST_PYPI_TOKEN }}
 
       - name: Install dependencies
