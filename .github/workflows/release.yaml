@@ -55,5 +55,5 @@ jobs:
         run: |
           poetry build
           # TODO Change to PYPI_TOKEN for PR
-          # poetry publish
-          poetry publish --repository testpypi
+          poetry publish
+          # poetry publish --repository testpypi
