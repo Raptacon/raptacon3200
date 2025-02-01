@@ -34,8 +34,9 @@ lint:
 	# --select=E9,F6,F7,F8,F4,W1,W2,W4,W5,W6,E11 --ignore W293
 	${VENVBIN}/flake8 . --count --select=E9,F6,F7,F8,F4,W1,W2,W4,W5,W6,E11 --ignore W293,W503 --show-source --statistics --exclude */tests/pyfrc*,utils/yaml/*,.venv*/,venv*/
 
-test: setup_${VENV} lint
-	${VENVBIN}/${PYTHON} robot.py test utils/testBotFactory.py
+test: 
+	poetry run pytest -v tests
+
 
 coverage: setup_${VENV} test
 	${VENVBIN}/${PYTHON} robot.py coverage test
