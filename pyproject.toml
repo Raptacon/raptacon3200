@@ -51,3 +51,4 @@ commit_message = "chore(release): bump version to {version}"
 [tool.poetry.dependencies]
 flake8 = "^7.1.1"
 pytest = "^8.3.4"
+robotpy-rev = "^2025.0.2"
