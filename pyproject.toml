@@ -1,9 +1,9 @@
-[tool.poetry]
+[project]
 name = "raptacon3200"
-version = "0.0.1"
+version = "2025.0.1"
 description = "A FRC Raptacon 3200 Robot Common Library"
 authors = [
-  "Chris Hirsch <chris@base2technology.com>"
+  { name = "Chris Hirsch", email = "chris@base2technology.com"}
 ]
 maintainers = [
 ]
@@ -17,19 +17,27 @@ classifiers = [
 ]
 
 homepage = "https://github.com/raptacon/raptacon3200"
-
-[tool.poetry.urls]
 "Bug Tracker" = "https://github.com/raptacon/raptacon3200/issues"
 
-[tool.poetry.dependencies]
-python = ">3.10"
+requires-python = ">= 3.10"
 
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.3.1"
+depependencies = [
+  "robotpy-rev^2025.0.2"
+]
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+dev.dependencies = [
+  "pytest>=8.3",
+  "pytest-cov>=6.0",
+  "black>=25.1",
+  "pylint>=3.2",
+  "flake8^7.1.1"
+]
+
+
+#[tool.poetry.dependencies]
+#[build-system]
+#requires = ["poetry-core"]
+#build-backend = "poetry.core.masonry.api"
 
 [tool.semantic_release]
 version_variable = ["raptacon3200/__init__.py:__version__"]
@@ -39,3 +47,8 @@ upload_to_pypi = false
 upload_to_release = true
 build_command = "pip install poetry && poetry build"
 commit_message = "chore(release): bump version to {version}"
+
+[tool.poetry.dependencies]
+flake8 = "^7.1.1"
+pytest = "^8.3.4"
+robotpy-rev = "^2025.0.2"
