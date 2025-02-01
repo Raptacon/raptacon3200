@@ -1,41 +1,46 @@
+# Internal imports
+from raptacon3200.constants.swerve import SparkMaxConstants
+
+# Third-party imports
 import rev
 
 
 def configureSparkMaxCanRates(
-    motor: rev.SparkMax,
-    faultRateMs=50,
-    motorTelmRateMs=50,
-    motorPosRateMs=50,
-    analogRateMs=1833,
-    altEncoderRateMs=1050,
-    dutyCycleEncRateMs=2150,
-    dutyCycleEncVelRateMs=3150,
-):
+    config: rev.SparkMaxConfig,
+    drive_motor_flag: bool,
+    faultRateMs: int = SparkMaxConstants.faultRateMs,
+    motorPosRateMs: int = SparkMaxConstants.motorPosRateMs,
+    appliedOutputRateMs: int = SparkMaxConstants.appliedOutputRateMs
+) -> None:
+    """
+    Configure the data transfer type and rate for swerve drive SparkMaxs. Some configurations
+    are universal while others vary based on the given inputs.
+    Args:
+        config: the configuration object for the SparkMax to update
+        drive_motor_flag: if True, the SparkMax controls a drive motor on the swerve drive.
+            If False, it controls a steer motor
+        faultRateMs: the rate, in milliseconds, at which fault signals are transmitted
+        motorPosRateMs: the rate, in milliseconds, at which the position of the motor is transmitted
+        appliedOutputRateMs: the rate, in milliseconds, at which the motor's applied output is transmitted
+    Returns:
+        None - passed configuration is updated in-place
+    """
+    (
+        config.signals
+        # Fixed settings
+        .absoluteEncoderPositionAlwaysOn(False)
+        .absoluteEncoderVelocityAlwaysOn(False)
+        .analogPositionAlwaysOn(False)
+        .analogVelocityAlwaysOn(False)
+        .analogVoltageAlwaysOn(False)
+        .externalOrAltEncoderPositionAlwaysOn(False)
+        .externalOrAltEncoderVelocityAlwaysOn(False)
+        .primaryEncoderPositionAlwaysOn(True)
+        .IAccumulationAlwaysOn(False)
 
-    # Some of the configurations prior to 2025 are no longer available
-    # according to https://www.chiefdelphi.com/t/rev-spark-max-migration-to-2025/479555/4
-    # the idea is that a get method will request via CAN vs it always just sending on the bus
-    config = rev.SparkMaxConfig()
-    config.signals.faultsPeriodMs(faultRateMs)
-    # config.signals.motorTelmRateMs(motorTelmRateMs)
-    # config.signals.motorPosRateMs(motorPosRateMs)
-    # config.signals.analogRateMs(analogRateMs)
-    # config.signals.altEncoderRateMs(altEncoderRateMs)
-    # config.signals.dutyCycleEncRateMs(dutyCycleEncRateMs)
-    # config.signals.dutyCycleEncVelRateMs(dutyCycleEncVelRateMs)
-
-    # motor.configure(config, rev.kResetSafeParameters, rev.kPersistParameters)
-    motor.configure(
-        config,
-        rev.SparkBase.ResetMode.kResetSafeParameters,
-        rev.SparkBase.PersistMode.kPersistParameters,
+        # Input settings
+        .primaryEncoderVelocityAlwaysOn(drive_motor_flag)
+        .primaryEncoderPositionPeriodMs(motorPosRateMs)
+        .appliedOutputPeriodMs(appliedOutputRateMs)
+        .faultsPeriodMs(faultRateMs)
     )
-
-    # motor.setPeriodicFramePeriod(rev.SparkLowLevel.PeriodicFrame.kStatus0, faultRateMs)
-    # motor.setPeriodicFramePeriod(rev.SparkLowLevel.PeriodicFrame.kStatus1, motorTelmRateMs)
-    # motor.setPeriodicFramePeriod(rev.SparkLowLevel.PeriodicFrame.kStatus2, motorPosRateMs)
-    # motor.setPeriodicFramePeriod(rev.SparkLowLevel.PeriodicFrame.kStatus3, analogRateMs)
-    # motor.setPeriodicFramePeriod(rev.SparkLowLevel.PeriodicFrame.kStatus4, altEncoderRateMs)
-    # motor.setPeriodicFramePeriod(rev.SparkLowLevel.PeriodicFrame.kStatus5, dutyCycleEncRateMs)
-    # motor.setPeriodicFramePeriod(rev.SparkLowLevel.PeriodicFrame.kStatus6, dutyCycleEncVelRateMs)
-    # motor.setPeriodicFramePeriod(rev.SparkLowLevel.PeriodicFrame.kStatus7, 500) #Unknown frame type? default 250ms prob not important?

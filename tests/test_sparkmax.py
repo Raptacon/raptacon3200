@@ -40,7 +40,9 @@ def test_sparkmax_utils():
 
     try:
         motor = rev.SparkMax(1, rev.SparkLowLevel.MotorType.kBrushless)
-        sparkMaxUtils.configureSparkMaxCanRates(motor)
+        steer_motor_config = rev.SparkMaxConfig()
+        # We can probably rename this to sparkMaxUtils.configureCanRates()
+        sparkMaxUtils.configureSparkMaxCanRates(config=steer_motor_config, drive_motor_flag=False)
         assert motor is not None, "Should be able to create SparkMax instance"
     except Exception as e:
         pytest.fail(f"Failed to create SparkMax: {str(e)}")
