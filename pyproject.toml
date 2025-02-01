@@ -1,9 +1,9 @@
-[tool.poetry]
+[project]
 name = "raptacon3200"
 version = "2025.0.1"
 description = "A FRC Raptacon 3200 Robot Common Library"
 authors = [
-  "Chris Hirsch <chris@base2technology.com>"
+  { name = "Chris Hirsch", email = "chris@base2technology.com"}
 ]
 maintainers = [
 ]
@@ -17,30 +17,27 @@ classifiers = [
 ]
 
 homepage = "https://github.com/raptacon/raptacon3200"
-
-[tool.poetry.urls]
 "Bug Tracker" = "https://github.com/raptacon/raptacon3200/issues"
 
-[tool.poetry.dependencies]
-python = ">3.10"
-robotpy = "*"
-robotpy-rev = "*"
-robotpy-wpilib = "*"
-robotpy-wpimath = "*"
-robotpy-commands-v2 = "*"
-robotpy-wpinet = "*"
-robotpy-wpiutil = "*"
+requires-python = ">= 3.10"
+
+depependencies = [
+  "robotpy-rev^2025.0.2"
+]
+
+dev.dependencies = [
+  "pytest>=8.3",
+  "pytest-cov>=6.0",
+  "black>=25.1",
+  "pylint>=3.2",
+  "flake8^7.1.1"
+]
 
 
-[tool.poetry.group.dev.dependencies]
-pytest = ">=8.3"
-pytest-cov = ">=6.0"
-black = ">=25.1"
-pylint = ">=3.0"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+#[tool.poetry.dependencies]
+#[build-system]
+#requires = ["poetry-core"]
+#build-backend = "poetry.core.masonry.api"
 
 [tool.semantic_release]
 version_variable = ["raptacon3200/__init__.py:__version__"]
