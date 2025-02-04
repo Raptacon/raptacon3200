@@ -1,8 +1,21 @@
-# Internal imports
-from raptacon3200.constants.swerve import SparkMaxConstants
-
 # Third-party imports
 import rev
+
+#############################
+# CONSTANTS ###################
+#############################
+
+
+class SparkMaxConstants:
+    faultRateMs: int = 50
+    motorPosRateMs: int = 20
+    appliedOutputRateMs: int = 10
+    motorTelmRateMs: int = 50
+    analogRateMs: int = 1833
+    altEncoderRateMs: int = 1050
+    dutyCycleEncRateMs: int = 2150
+    dutyCycleEncVelRateMs: int = 3150
+
 
 
 def configureSparkMaxCanRates(
