@@ -116,4 +116,3 @@ insecure = false
 [semantic_release.publish]
 dist_glob_patterns = ["dist/*"]
 upload_to_vcs_release = true
-
