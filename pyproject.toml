@@ -1,6 +1,6 @@
 [project]
 name = "raptacon3200"
-version = "v2025.0.2"
+version = "2025.0.2"
 description = "A FRC Raptacon 3200 Robot Common Library"
 authors = [
   { name = "Chris Hirsch", email = "chris@base2technology.com"}
@@ -48,20 +48,21 @@ robotpy-rev = "^2025.0.2"
 [semantic_release]
 version_toml = ["pyproject.toml:tool.poetry.version"]
 branch = "main"
-upload_to_pypi = false
+upload_to_pypi = true
 upload_to_release = true
 build_command = "pip install poetry && poetry build"
 commit_message = "chore(release): bump version to {version}"
+version_source = "commit"
+major_on_zero = false
+tag_format = "{version}"
 
-version_variables = ["raptacon3200/__init__.py:__version__"]
-assets = []
-build_command_env = []
-commit_parser = "angular"
+
+version_variable = [
+    "pyproject.toml:version"
+]
 logging_use_named_masks = false
-major_on_zero = true
 allow_zero_version = true
 no_git_verify = false
-tag_format = "v{version}"
 
 [semantic_release.branches.main]
 match = "(main|master|ci/auto_version)"
