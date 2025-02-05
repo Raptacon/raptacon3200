@@ -58,12 +58,12 @@ logging_use_named_masks = false
 allow_zero_version = true
 no_git_verify = false
 
-[semantic_release.branches.main]
+[tool.semantic_release.branches.main]
 match = "(main|master|)"
 prerelease_token = "rc"
 prerelease = false
 
-[semantic_release.branches.release]
+[tool.semantic_release.branches.release]
 match = "release-[0-9a-f]{8}"
 prerelease_token = "rc"
 prerelease = false
