@@ -1,0 +1,57 @@
+name: Semantic Version
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  semver:
+    name: Update Version
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install python-semantic-release poetry
+
+      - name: Create Release Branch
+        run: |
+          git checkout -b release-${GITHUB_SHA::8}
+
+      - name: Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "action@github.com"
+          poetry run semantic-release version
+          poetry run semantic-release changelog
+          VERSION=$(poetry version -s)
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
+      - name: Create Pull Request
+        if: env.VERSION != ''
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: "chore: version bump to ${{ env.VERSION }}"
+          branch: release-${GITHUB_SHA::8}
+          base: main
+          labels: automated-pr

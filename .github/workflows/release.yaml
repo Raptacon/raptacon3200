@@ -1,26 +1,22 @@
-name: Release
+name: Build and Release
 
 on:
   push:
     branches:
       - main
       - master
+    paths:
+      - 'pyproject.toml'
 
 jobs:
-  release:
-    name: Release
+  build:
+    name: Build and Publish
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-
+    if: "contains(github.event.head_commit.message, 'version bump')"
+    
     steps:
       - name: Check out code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -30,31 +26,9 @@ jobs:
       - name: Install Poetry
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
-          # TODO Change to PYPI_TOKEN for PR
           poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
-          # poetry config repositories.testpypi https://test.pypi.org/legacy/
-          # poetry config pypi-token.testpypi ${{ secrets.TEST_PYPI_TOKEN }}
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install python-semantic-release
-          poetry install
-
-      - name: Semantic Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "action@github.com"
-          poetry run semantic-release version --print
-          poetry run semantic-release -vv version 
-          # poetry run semantic-release  -v  changelog
-
 
       - name: Build and publish
         run: |
           poetry build
-          # TODO Change to PYPI_TOKEN for PR
           poetry publish
-          # poetry publish --repository testpypi
