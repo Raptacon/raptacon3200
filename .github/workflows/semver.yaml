@@ -42,10 +42,14 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "action@github.com"
-          poetry run semantic-release version
-          poetry run semantic-release changelog
+          poetry run semantic-release -vv version
+          poetry run semantic-release -vv changelog
           VERSION=$(poetry version -s)
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
+          # Add and commit the changes
+          git add pyproject.toml CHANGELOG.md
+          git commit -m "chore: version bump to ${VERSION}"
 
       - name: Create Pull Request
         if: env.VERSION != ''
