@@ -47,10 +47,6 @@ jobs:
           VERSION=$(poetry version -s)
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
-          # Add and commit the changes
-          git add pyproject.toml CHANGELOG.md
-          git commit -m "chore: version bump to ${VERSION}"
-
       - name: Create Pull Request
         if: env.VERSION != ''
         uses: peter-evans/create-pull-request@v5
