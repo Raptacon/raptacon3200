@@ -3,8 +3,8 @@ import rev
 from raptacon3200.utils import sparkMaxUtils
 from raptacon3200.utils.sparkMaxUtils import SparkMaxConstants as constant
 
-
 # Need to change names etc per https://docs.revrobotics.com/revlib/24-to-25
+
 
 def test_sparkmax_constants():
     """Test that SparkMax constants exist has expected values"""
