@@ -49,7 +49,7 @@ jobs:
           git config --global user.email "action@github.com"
           poetry run semantic-release -vv version --print
           poetry run semantic-release -vv version 
-          peotry run semantic-release  -v  changelog
+          poetry run semantic-release  -v  changelog
 
 
       - name: Build and publish
