@@ -47,9 +47,9 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "action@github.com"
-          poetry run semantic-release -vv version --print
+          poetry run semantic-release version --print
           poetry run semantic-release -vv version 
-          poetry run semantic-release  -v  changelog
+          # poetry run semantic-release  -v  changelog
 
 
       - name: Build and publish
