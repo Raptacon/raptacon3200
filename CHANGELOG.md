@@ -1,61 +1,6 @@
 # CHANGELOG
 
 
-## v2025.1.0 (2025-02-04)
-
-### Continuous Integration
-
-- 🎡 Actually need to add the changed files for a new PR
-  ([`c266ccf`](https://github.com/Raptacon/raptacon3200/commit/c266ccfdcac7a83e79a84dbce06e1f98a0024b0e))
-
-- 🎡 attempted version change
-  ([`1d21361`](https://github.com/Raptacon/raptacon3200/commit/1d21361b9775a96a345b7cb1b578c66c2b8f4b9c))
-
-- 🎡 auto version ([#10](https://github.com/Raptacon/raptacon3200/pull/10),
-  [`ef768e2`](https://github.com/Raptacon/raptacon3200/commit/ef768e2c0be57a4c193a730c91cdb639f6452b7e))
-
-Co-authored-by: Chris Hirsch <chris@kiatek.com>
-
-- 🎡 because the tool. prefix is important
-  ([`3d8c160`](https://github.com/Raptacon/raptacon3200/commit/3d8c1603cb35d235b6916ccdedd825923e2396d9))
-
-- 🎡 should fix new pr
-  ([`bcb3035`](https://github.com/Raptacon/raptacon3200/commit/bcb30354a30a844b7db178cb64d9ecbe120c475f))
-
-- 🎡 version bump with pr
-  ([`1beb3eb`](https://github.com/Raptacon/raptacon3200/commit/1beb3eb4f21d8b79a0ba52bee8f0475d725fad83))
-
-- 🎡 working on releae
-  ([`8593304`](https://github.com/Raptacon/raptacon3200/commit/85933046b8c42c502dbc133955685723685a61ba))
-
-### Features
-
-- 🎸 Test auto bump version
-  ([`bae2fe5`](https://github.com/Raptacon/raptacon3200/commit/bae2fe5c479fc245f495f70ad92aa6ce041538c0))
-
-- 🎸 test auto version
-  ([`230394f`](https://github.com/Raptacon/raptacon3200/commit/230394f8c6bef0d1bc08ac2870e6ab0d538c68a5))
-
-- 🎸 test auto version ([#11](https://github.com/Raptacon/raptacon3200/pull/11),
-  [`9376400`](https://github.com/Raptacon/raptacon3200/commit/9376400b6d15f043b7e6383bb5c27c505b2f985e))
-
-Co-authored-by: Chris Hirsch <chris@kiatek.com>
-
-### Refactoring
-
-- 💡 disable changelog for now
-  ([`b5afaa8`](https://github.com/Raptacon/raptacon3200/commit/b5afaa8fa00ee256b6888aee8143ea49861eab95))
-
-- 💡 don't build in semver
-  ([`5c71eda`](https://github.com/Raptacon/raptacon3200/commit/5c71edae8a5223604e88c431ce62cb116d58fb6d))
-
-- 💡 don't use main
-  ([`80d4830`](https://github.com/Raptacon/raptacon3200/commit/80d4830b1d6ac616f15a6a21c7edf27e02f06730))
-
-- 💡 use GH_TOKEN
-  ([`7161d7e`](https://github.com/Raptacon/raptacon3200/commit/7161d7e3b983f5ba8cfe96cc1b7a922d3aa09b7b))
-
-
 ## v2025.0.4 (2025-02-03)
 
 

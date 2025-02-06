@@ -1,6 +1,6 @@
 [project]
 name = "raptacon3200"
-version = "2025.1.0"
+version = "2025.0.4"
 description = "A FRC Raptacon 3200 Robot Common Library"
 authors = [
   { name = "Chris Hirsch", email = "chris@base2technology.com"}
