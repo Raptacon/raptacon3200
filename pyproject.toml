@@ -1,6 +1,6 @@
 [project]
 name = "raptacon3200"
-version = "2025.0.4"
+version = "2025.1.0"
 description = "A FRC Raptacon 3200 Robot Common Library"
 authors = [
   { name = "Chris Hirsch", email = "chris@base2technology.com"}
@@ -48,7 +48,7 @@ robotpy-rev = "^2025.0.2"
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
 upload_to_pypi = false
-upload_to_release = false
+upload_to_release = true
 # Not needed..we build in a different step
 #build_command = "pip install poetry && poetry build"
 commit_message = "chore(release): bump version to {version}"
