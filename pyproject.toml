@@ -48,7 +48,7 @@ robotpy-rev = "^2025.0.2"
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
 upload_to_pypi = false
-upload_to_release = false
+upload_to_release = true
 # Not needed..we build in a different step
 #build_command = "pip install poetry && poetry build"
 commit_message = "chore(release): bump version to {version}"
