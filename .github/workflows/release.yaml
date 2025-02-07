@@ -5,8 +5,6 @@ on:
     branches:
       - main
       - master
-    paths:
-      - 'pyproject.toml'
 
 jobs:
   build:
@@ -20,6 +18,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -36,14 +36,14 @@ jobs:
           curl -sSL https://install.python-poetry.org | python3 -
           poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
 
-      - name: Semantic Release
+      - name: Semantic Versioning
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_WRITE_ACCESS }}
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "action@github.com"
+          poetry version -s
           poetry run semantic-release -vv version
-          #poetry run semantic-release -vv changelog
           VERSION=$(poetry version -s)
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
