@@ -44,6 +44,8 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "action@github.com"
+          poetry version -s
+          poetry run semantic-release --noop -vvv version
           poetry run semantic-release -vv version
           #poetry run semantic-release -vv changelog
           VERSION=$(poetry version -s)
