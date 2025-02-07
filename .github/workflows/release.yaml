@@ -47,7 +47,6 @@ jobs:
           poetry version -s
           poetry run semantic-release --noop -vvv version
           poetry run semantic-release -vv version
-          #poetry run semantic-release -vv changelog
           VERSION=$(poetry version -s)
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
