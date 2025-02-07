@@ -40,7 +40,7 @@ jobs:
 
       - name: Semantic Versioning
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_WRITE_ACCESS }}
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "action@github.com"
