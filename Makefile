@@ -36,7 +36,7 @@ lint: check
 	echo "flake8 . --count --select=E9,F6,F7,F8,F4,W1,W2,W4,W5,W6,E11 --ignore W293,W503 --show-source --statistics --exclude */tests/pyfrc*,utils/yaml/*,.venv*/,venv*/"
 
 test: 
-	poetry run pytest -v tests
+	poetry run pytest -v tests raptacon3200
 
 
 coverage: setup_${VENV} test
