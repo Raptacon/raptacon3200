@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - master
+      # TODO remove before merge
+      - ci/build_only_on_new_version
 
 jobs:
   build:
