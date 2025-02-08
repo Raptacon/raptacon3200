@@ -1,12 +1,59 @@
+# Third-party imports
 import rev
 
-def configureSparkMaxCanRates(motor : rev.CANSparkMax, faultRateMs = 50, motorTelmRateMs = 50, motorPosRateMs = 50, analogRateMs=1833, altEncoderRateMs = 1050, dutyCycleEncRateMs = 2150, dutyCycleEncVelRateMs = 3150):
-    motor.setPeriodicFramePeriod(rev.CANSparkLowLevel.PeriodicFrame.kStatus0, faultRateMs)
-    motor.setPeriodicFramePeriod(rev.CANSparkLowLevel.PeriodicFrame.kStatus1, motorTelmRateMs)
-    motor.setPeriodicFramePeriod(rev.CANSparkLowLevel.PeriodicFrame.kStatus2, motorPosRateMs)
-    motor.setPeriodicFramePeriod(rev.CANSparkLowLevel.PeriodicFrame.kStatus3, analogRateMs)
-    motor.setPeriodicFramePeriod(rev.CANSparkLowLevel.PeriodicFrame.kStatus4, altEncoderRateMs)
-    motor.setPeriodicFramePeriod(rev.CANSparkLowLevel.PeriodicFrame.kStatus5, dutyCycleEncRateMs)
-    motor.setPeriodicFramePeriod(rev.CANSparkLowLevel.PeriodicFrame.kStatus6, dutyCycleEncVelRateMs)
-    motor.setPeriodicFramePeriod(rev.CANSparkLowLevel.PeriodicFrame.kStatus7, 500) #Unknown frame type? default 250ms prob not important?
-    
+#############################
+# CONSTANTS ###################
+#############################
+
+
+class SparkMaxConstants:
+    faultRateMs: int = 50
+    motorPosRateMs: int = 20
+    appliedOutputRateMs: int = 10
+    motorTelmRateMs: int = 50
+    analogRateMs: int = 1833
+    altEncoderRateMs: int = 1050
+    dutyCycleEncRateMs: int = 2150
+    dutyCycleEncVelRateMs: int = 3150
+
+
+
+def configureSparkMaxCanRates(
+    config: rev.SparkMaxConfig,
+    drive_motor_flag: bool,
+    faultRateMs: int = SparkMaxConstants.faultRateMs,
+    motorPosRateMs: int = SparkMaxConstants.motorPosRateMs,
+    appliedOutputRateMs: int = SparkMaxConstants.appliedOutputRateMs
+) -> None:
+    """
+    Configure the data transfer type and rate for swerve drive SparkMaxs. Some configurations
+    are universal while others vary based on the given inputs.
+    Args:
+        config: the configuration object for the SparkMax to update
+        drive_motor_flag: if True, the SparkMax controls a drive motor on the swerve drive.
+            If False, it controls a steer motor
+        faultRateMs: the rate, in milliseconds, at which fault signals are transmitted
+        motorPosRateMs: the rate, in milliseconds, at which the position of the motor is transmitted
+        appliedOutputRateMs: the rate, in milliseconds, at which the motor's applied output is transmitted
+    Returns:
+        None - passed configuration is updated in-place
+    """
+    (
+        config.signals
+        # Fixed settings
+        .absoluteEncoderPositionAlwaysOn(False)
+        .absoluteEncoderVelocityAlwaysOn(False)
+        .analogPositionAlwaysOn(False)
+        .analogVelocityAlwaysOn(False)
+        .analogVoltageAlwaysOn(False)
+        .externalOrAltEncoderPositionAlwaysOn(False)
+        .externalOrAltEncoderVelocityAlwaysOn(False)
+        .primaryEncoderPositionAlwaysOn(True)
+        .IAccumulationAlwaysOn(False)
+
+        # Input settings
+        .primaryEncoderVelocityAlwaysOn(drive_motor_flag)
+        .primaryEncoderPositionPeriodMs(motorPosRateMs)
+        .appliedOutputPeriodMs(appliedOutputRateMs)
+        .faultsPeriodMs(faultRateMs)
+    )
