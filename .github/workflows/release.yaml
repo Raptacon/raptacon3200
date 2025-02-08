@@ -48,14 +48,14 @@ jobs:
           poetry version -s
           NO_RELEASE=$(poetry run semantic-release version --print 2>&1| grep "No release will be made")
           # If we don't find the "No release will be made" text then we know we need to release
-          printf "NO_RELEASE=$NO_RELEASE"
+          printf "NO_RELEASE=$NO_RELEASE\n"
 
           if [[ -z $NO_RELEASE ]]; then
             poetry run semantic-release -vv version
             VERSION=$(poetry version -s)
             echo "VERSION=${VERSION}" >> $GITHUB_ENV
           fi
-          printf "VERSION=$VERSION"
+          printf "VERSION=$VERSION\n"
 
 
       - name: Build and publish
