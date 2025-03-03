@@ -10,7 +10,7 @@ Documentation
 Contributing new changes
 ========================
 
-1. [Fork this git repository](https://github.com/raptacon...) to your github account
+1. [Fork this git repository](https://github.com/Raptacon/raptacon3200) to your github account
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push -u origin my-new-feature`)
