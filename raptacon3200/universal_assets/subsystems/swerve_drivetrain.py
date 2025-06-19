@@ -23,49 +23,60 @@ class SwerveDrivetrain(Subsystem):
     """
     Virtual representation of, and interface for, a full swerve drive
     """
-    def __init__(self):
+    def __init__(self, swerve_drive_constants, swerve_module_constants, robot_config):
         """
         Creates a new swerve drivetrain.
+
+        Args:
+            swerve_drive_constants: constants defining physical attributes of the whole swerve drive
+            swerve_module_constants: constants defining physical attributes of an individual swerve module
+            robot_config: general robot configuration values that are unspecific to the swerve drive
 
         Returns:
             None: class initialization executed upon construction
         """
-        self.constants = SwerveDriveConsts()
-        self.invert_gyro = self.constants.invertGyro
+        self.swerve_drive_constants = swerve_drive_constants
+        self.swerve_module_constants = swerve_module_constants
+        self.robot_config = robot_config
+        self.invert_gyro = self.swerve_drive_constants.invertGyro
 
-        # must give in front-left, front-right, back-left, back-right order
+        # Must give in front-left, front-right, back-left, back-right order
         self.swerve_modules = [
             SwerveModuleMk4iSparkMaxNeoCanCoder(
                 "frontLeft",
-                (self.constants.moduleFrontLeftX, self.constants.moduleFrontLeftY),
-                OperatorRobotConfig.swerve_module_channels[0],
-                invert_drive=self.constants.moduleFrontLeftInvertDrive,
-                invert_steer=self.constants.moduleFrontLeftInvertSteer,
-                encoder_calibration=OperatorRobotConfig.swerve_abs_encoder_calibrations[0]
+                (self.swerve_drive_constants.moduleFrontLeftX, self.swerve_drive_constants.moduleFrontLeftY),
+                self.swerve_drive_constants.swerve_module_channels[0],
+                invert_drive=self.swerve_drive_constants.moduleFrontLeftInvertDrive,
+                invert_steer=self.swerve_drive_constants.moduleFrontLeftInvertSteer,
+                encoder_calibration=self.swerve_drive_constants.swerve_abs_encoder_calibrations[0],
+                swerve_level_constants=swerve_module_constants
             ),
             SwerveModuleMk4iSparkMaxNeoCanCoder(
                 "frontRight",
-                (self.constants.moduleFrontRightX, self.constants.moduleFrontRightY),
-                OperatorRobotConfig.swerve_module_channels[1],
-                invert_drive=self.constants.moduleFrontRightInvertDrive,
-                invert_steer=self.constants.moduleFrontRightInvertSteer,
-                encoder_calibration=OperatorRobotConfig.swerve_abs_encoder_calibrations[1]
+                (self.swerve_drive_constants.moduleFrontRightX, self.swerve_drive_constants.moduleFrontRightY),
+                self.swerve_drive_constants.swerve_module_channels[1],
+                invert_drive=self.swerve_drive_constants.moduleFrontRightInvertDrive,
+                invert_steer=self.swerve_drive_constants.moduleFrontRightInvertSteer,
+                encoder_calibration=self.swerve_drive_constants.swerve_abs_encoder_calibrations[1],
+                swerve_level_constants=swerve_module_constants
             ),
             SwerveModuleMk4iSparkMaxNeoCanCoder(
                 "backLeft",
-                (self.constants.moduleBackLeftX, self.constants.moduleBackLeftY),
-                OperatorRobotConfig.swerve_module_channels[2],
-                invert_drive=self.constants.moduleBackLeftInvertDrive,
-                invert_steer=self.constants.moduleBackLeftInvertSteer,
-                encoder_calibration=OperatorRobotConfig.swerve_abs_encoder_calibrations[2]
+                (self.swerve_coswerve_drive_constantsnstants.moduleBackLeftX, self.swerve_swerve_drive_constantsconstants.moduleBackLeftY),
+                self.swerve_drive_constants.swerve_module_channels[2],
+                invert_drive=self.swerve_drive_constants.moduleBackLeftInvertDrive,
+                invert_steer=self.swerve_drive_constants.moduleBackLeftInvertSteer,
+                encoder_calibration=self.swerve_drive_constants.swerve_abs_encoder_calibrations[2],
+                swerve_level_constants=swerve_module_constants
             ),
             SwerveModuleMk4iSparkMaxNeoCanCoder(
                 "backRight",
-                (self.constants.moduleBackRightX, self.constants.moduleBackRightY),
-                OperatorRobotConfig.swerve_module_channels[3],
-                invert_drive=self.constants.moduleBackRightInvertDrive,
-                invert_steer=self.constants.moduleBackRightInvertSteer,
-                encoder_calibration=OperatorRobotConfig.swerve_abs_encoder_calibrations[3]
+                (self.swerve_drive_constants.moduleBackRightX, self.swerve_drive_constants.moduleBackRightY),
+                self.swerve_drive_constants.swerve_module_channels[3],
+                invert_drive=self.swerve_drive_constants.moduleBackRightInvertDrive,
+                invert_steer=self.swerve_drive_constants.moduleBackRightInvertSteer,
+                encoder_calibration=self.swerve_drive_constants.swerve_abs_encoder_calibrations[3],
+                swerve_level_constants=swerve_module_constants
             )
         ]
 
@@ -87,6 +98,8 @@ class SwerveDrivetrain(Subsystem):
         self.reset_heading()
 
         # Path Planner setup
+        # TODO: need to get dynamic generation working, because this code won't live in PathPlanner
+        # file location
         path_planner_config = RobotConfig.fromGUISettings()
         self.configure_path_planner(path_planner_config)
 
@@ -149,8 +162,6 @@ class SwerveDrivetrain(Subsystem):
         velocity_vector_y: float,
         angular_velocity: float,
         field_relative: bool = True,
-        turbo_mode: bool = False,
-        slow_mode: bool = False
     ) -> None:
         """
         Operate the swerve drive according to three given component velocities. These velocities
@@ -168,34 +179,18 @@ class SwerveDrivetrain(Subsystem):
         Returns:
             None: individual swerve modules are given new goal states to transition to in-place
         """
-        # Turn down speed for better driver usage
-        dampener_use = OperatorRobotConfig.swerve_velocity_dampener
-        dampener_use_velocity_x, dampener_use_velocity_y, dampener_use_angular = (
-            dampener_use, dampener_use, dampener_use
-        )
-        if turbo_mode:
-            dampener_use_velocity_x, dampener_use_velocity_y, dampener_use_angular = (1.0, 1.0, 1.0)
-        if slow_mode:
-            dampener_use_velocity_x, dampener_use_velocity_y, dampener_use_angular = (
-                dampener_use, dampener_use, 0.55
-            )
-
-        dampened_velocity_vector_x = dampener_use_velocity_x * velocity_vector_x
-        dampened_velocity_vector_y = dampener_use_velocity_y * velocity_vector_y
-        dampened_angular_velocity = dampener_use_angular * angular_velocity
-
         if field_relative:
             field_invert = 1
             if self.flip_to_red_alliance():
                 field_invert = -1
 
             chassis_speeds = ChassisSpeeds.fromFieldRelativeSpeeds(
-                field_invert * dampened_velocity_vector_x, field_invert * dampened_velocity_vector_y,
-                dampened_angular_velocity, self.current_pose().rotation()
+                field_invert * velocity_vector_x, field_invert * velocity_vector_y,
+                angular_velocity, self.current_pose().rotation()
             )
         else:
             chassis_speeds = ChassisSpeeds(
-                dampened_velocity_vector_x, dampened_velocity_vector_y, dampened_angular_velocity
+                velocity_vector_x, velocity_vector_y, angular_velocity
             )
 
         self.set_states_from_speeds(chassis_speeds)
@@ -254,7 +249,7 @@ class SwerveDrivetrain(Subsystem):
             None: new goal states are set for each swerve module in-place
         """
         module_states = self.drive_kinematics.toSwerveModuleStates(drivetrain_speeds)
-        module_states = self.drive_kinematics.desaturateWheelSpeeds(module_states, self.constants.maxTranslationMPS)
+        module_states = self.drive_kinematics.desaturateWheelSpeeds(module_states, self.swerve_drive_constants.maxTranslationMPS)
 
         for i, module_state in enumerate(module_states):
             self.swerve_modules[i].set_state(module_state, apply_cosine_scaling=apply_cosine_scaling)
@@ -305,9 +300,9 @@ class SwerveDrivetrain(Subsystem):
         Returns:
             default_starting_pose: the assumed starting pose given no other information
         """
-        default_starting_pose = OperatorRobotConfig.blue_default_start_pose
+        default_starting_pose = self.robot_config.blue_default_start_pose
         if self.flip_to_red_alliance():
-            default_starting_pose = OperatorRobotConfig.red_default_start_pose
+            default_starting_pose = self.robot_config.red_default_start_pose
 
         default_starting_pose = Pose2d(
             Translation2d(*default_starting_pose[0:2]), Rotation2d.fromDegrees(default_starting_pose[2])
@@ -382,11 +377,11 @@ class SwerveDrivetrain(Subsystem):
             PathPlanner configuration object based on our robot's properties
         """
         path_planner_config = RobotConfig(
-            massKG=self.constants.massKG,
-            MOI=self.constants.MOI,
+            massKG=self.swerve_drive_constants.massKG,
+            MOI=self.swerve_drive_constants.MOI,
             moduleConfig=ModuleConfig(
                 wheelRadiusMeters=self.swerve_modules[0].constants.wheelDiameter / 2.0,
-                maxDriveVelocityMPS=self.constants.maxTranslationMPS,
+                maxDriveVelocityMPS=self.swerve_drive_constants.maxTranslationMPS,
                 wheelCOF=self.swerve_modules[0].constants.wheelCOF,
                 driveMotor=getattr(DCMotor, self.swerve_modules[0].constants.motorType)(
                     self.swerve_modules[0].constants.numDriveMotors
@@ -399,7 +394,7 @@ class SwerveDrivetrain(Subsystem):
 
         return path_planner_config
 
-    def configure_path_planner(self, config: RobotConfig) -> None:
+    def configure_path_planner(self, pathplan_config: RobotConfig) -> None:
         """
         Set up PathPlanner to execute autonomous routines using this drivetrain.
 
@@ -435,10 +430,10 @@ class SwerveDrivetrain(Subsystem):
             self.current_robot_relative_speed,
             lambda speeds, feedforwards: self.set_states_from_speeds(speeds, apply_cosine_scaling=False),
             PPHolonomicDriveController(
-                PIDConstants(*OperatorRobotConfig.pathplanner_translation_pid),
-                PIDConstants(*OperatorRobotConfig.pathplanner_rotation_pid)
+                PIDConstants(*self.swerve_drive_constants.pathplanner_translation_pid),
+                PIDConstants(*self.swerve_drive_constants.pathplanner_rotation_pid)
             ),
-            config,
+            pathplan_config,
             self.flip_to_red_alliance,
             self
         )

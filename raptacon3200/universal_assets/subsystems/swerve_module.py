@@ -2,9 +2,8 @@
 from typing import Tuple
 
 # Internal imports
-from config import OperatorRobotConfig
-from constants import SwerveModuleMk4iConsts, SwerveModuleMk4iL2Consts
-from raptacon3200.utils import sparkMaxUtils
+from constants import SwerveModuleMk4iConsts
+from utils import sparkMaxUtils
 
 # Third-party imports
 import phoenix6
@@ -32,10 +31,13 @@ class SwerveModuleMk4iSparkMaxNeoCanCoder:
         name: str,
         drivetrain_location: Tuple[float, float],
         channel_base: int,
+        swerve_drive_constants,
+        swerve_level_constants: SwerveModuleMk4iConsts,
         invert_drive: bool = False,
         invert_steer: bool = False,
         encoder_calibration: float = 0,
-        swerve_level_constants: SwerveModuleMk4iConsts=SwerveModuleMk4iL2Consts()
+        
+        
     ) -> None:
         """
         Creates a new swerve module at a given location in the robot.
@@ -49,20 +51,22 @@ class SwerveModuleMk4iSparkMaxNeoCanCoder:
                 - channelBase = drive
                 - channelBase + 1 = steer
                 - channelBase + 2 = absolute encoder
+            swerve_drive_constants: physical constants that define properties of the whole swerve drive
+            swerve_level_constants: physical constants that define properties of the swerve module
             invert_drive: if True, flip the rotation direction that corresponds to the polarity of the drive motor input.
                 We want counter-clockwise rotation when facing the bevel to come from positive polarity
             invert_steer: if True, flip the rotation direction that corresponds to the polarity of the steer motor input.
                 We want counter-clockwise rotation when looking down on the top of the robot to come from positive polarity
             encoder_calibration: the starting position of the absolute encoder when the long orientation of the wheel
                 follows the X (front-to-back) axis and the bevel faces left
-            swerve_level_constants: physical constants that define properties of the swerve module
             
         Returns
             None: class initialization executed upon construction
         """
         # Overall instantiation
-        self.constants = swerve_level_constants
-        setattr(self.constants, "encoder_calibration", encoder_calibration)
+        self.swerve_drive_constants = swerve_drive_constants
+        self.swerve_module_constants = swerve_level_constants
+        setattr(self.swerve_module_constants, "encoder_calibration", encoder_calibration)
         self.name = name
         self.drivetrain_location = Translation2d(*drivetrain_location)
 
@@ -103,7 +107,7 @@ class SwerveModuleMk4iSparkMaxNeoCanCoder:
                 f"Failed to configure CAN encoder on id {self.id_lookup['absolute_encoder']}. Error {status}"
             )
 
-        status = self.absolute_encoder.get_position().set_update_frequency(self.constants.kCanStatusFrameHz, 0.25)
+        status = self.absolute_encoder.get_position().set_update_frequency(self.swerve_module_constants.kCanStatusFrameHz, 0.25)
         if not status.is_ok():
             raise RuntimeError(
                 f"Failed to configure CAN encoder on id {self.id_lookup['absolute_encoder']}. Error {status}"
@@ -136,26 +140,26 @@ class SwerveModuleMk4iSparkMaxNeoCanCoder:
             self.steer_motor_config
             .inverted(invert)
             .setIdleMode(rev.SparkBaseConfig.IdleMode.kCoast)
-            .voltageCompensation(self.constants.kNominalVoltage)
-            .smartCurrentLimit(self.constants.kSteerCurrentLimit)
-            .closedLoopRampRate(self.constants.kRampRate)
-            .openLoopRampRate(self.constants.kRampRate)
+            .voltageCompensation(self.swerve_module_constants.kNominalVoltage)
+            .smartCurrentLimit(self.swerve_module_constants.kSteerCurrentLimit)
+            .closedLoopRampRate(self.swerve_module_constants.kRampRate)
+            .openLoopRampRate(self.swerve_module_constants.kRampRate)
         )
 
         (
             self.steer_motor_config.closedLoop
             .setFeedbackSensor(rev.ClosedLoopConfig.FeedbackSensor.kPrimaryEncoder)
-            .pid(*OperatorRobotConfig.swerve_steer_pid)
+            .pid(*self.swerve_drive_constants.swerve_steer_pid)
             .positionWrappingEnabled(True)
             .positionWrappingInputRange(0, 360.0)
         )
 
         (
             self.steer_motor_config.encoder
-            .quadratureMeasurementPeriod(self.constants.quadratureMeasurementRateMs)
-            .quadratureAverageDepth(self.constants.quadratureAverageDepth)
-            .positionConversionFactor(self.constants.steerPositionConversionFactor)
-            .velocityConversionFactor(self.constants.steerVelocityConversionFactor)
+            .quadratureMeasurementPeriod(self.swerve_module_constants.quadratureMeasurementRateMs)
+            .quadratureAverageDepth(self.swerve_module_constants.quadratureAverageDepth)
+            .positionConversionFactor(self.swerve_module_constants.steerPositionConversionFactor)
+            .velocityConversionFactor(self.swerve_module_constants.steerVelocityConversionFactor)
         )
 
     def instantiate_drive_config(self, invert: bool) -> None:
@@ -174,22 +178,22 @@ class SwerveModuleMk4iSparkMaxNeoCanCoder:
             self.drive_motor_config
             .inverted(invert)
             .setIdleMode(rev.SparkBaseConfig.IdleMode.kBrake)
-            .voltageCompensation(self.constants.kNominalVoltage)
-            .smartCurrentLimit(self.constants.kDriveCurrentLimit)
-            .closedLoopRampRate(self.constants.kRampRate)
-            .openLoopRampRate(self.constants.kRampRate)
+            .voltageCompensation(self.swerve_module_constants.kNominalVoltage)
+            .smartCurrentLimit(self.swerve_module_constants.kDriveCurrentLimit)
+            .closedLoopRampRate(self.swerve_module_constants.kRampRate)
+            .openLoopRampRate(self.swerve_module_constants.kRampRate)
         )
 
         (
             self.drive_motor_config.closedLoop
             .setFeedbackSensor(rev.ClosedLoopConfig.FeedbackSensor.kPrimaryEncoder)
-            .pidf(*OperatorRobotConfig.swerve_drive_pid)
+            .pidf(*self.swerve_drive_constants.swerve_drive_pid)
         )
 
         (
             self.drive_motor_config.encoder
-            .positionConversionFactor(self.constants.drivePositionConversionFactor)
-            .velocityConversionFactor(self.constants.driveVelocityConversionFactor)
+            .positionConversionFactor(self.swerve_module_constants.drivePositionConversionFactor)
+            .velocityConversionFactor(self.swerve_module_constants.driveVelocityConversionFactor)
         )
 
     def apply_motor_config(self, to_drive: bool, burn_flash: bool = False) -> None:
