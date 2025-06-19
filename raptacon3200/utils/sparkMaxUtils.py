@@ -8,8 +8,8 @@ import rev
 
 class SparkMaxConstants:
     faultRateMs: int = 50
-    motorPosRateMs: int = 20
-    appliedOutputRateMs: int = 10
+    motorPosRateMs: int = 50
+    appliedOutputRateMs: int = 50
     motorTelmRateMs: int = 50
     analogRateMs: int = 1833
     altEncoderRateMs: int = 1050
