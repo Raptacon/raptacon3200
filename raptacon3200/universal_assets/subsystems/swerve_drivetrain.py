@@ -2,8 +2,6 @@
 from typing import Tuple
 
 # Internal imports
-from config import OperatorRobotConfig
-from constants import SwerveDriveConsts
 from .swerve_module import SwerveModuleMk4iSparkMaxNeoCanCoder
 
 # Third-party imports
@@ -419,7 +417,7 @@ class SwerveDrivetrain(Subsystem):
         - A subsystem to require for PathPlanner's commands.
 
         Args:
-            config: PathPlanner configuration object defining properties of the drivetrain and individual modules
+            pathplan_config: PathPlanner configuration object defining properties of the drivetrain and individual modules
 
         Returns:
             None: PathPlanner's AutoBuilder is configured in-place

@@ -2,7 +2,6 @@
 from typing import Tuple
 
 # Internal imports
-from constants import SwerveModuleMk4iConsts
 from utils import sparkMaxUtils
 
 # Third-party imports
@@ -32,7 +31,7 @@ class SwerveModuleMk4iSparkMaxNeoCanCoder:
         drivetrain_location: Tuple[float, float],
         channel_base: int,
         swerve_drive_constants,
-        swerve_level_constants: SwerveModuleMk4iConsts,
+        swerve_level_constants,
         invert_drive: bool = False,
         invert_steer: bool = False,
         encoder_calibration: float = 0,
