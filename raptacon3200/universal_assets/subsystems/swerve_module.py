@@ -23,7 +23,7 @@ Other defaults may be added in future
 
 class SwerveModuleMk4iSparkMaxNeoCanCoder:
     """
-    Module for Mk4i with 2 brushless Falcon 500s and a CANcoder swerve drive
+    Module for Mk4i with 2 brushless NEOs and a CANcoder swerve drive
     """
     def __init__(
         self,
@@ -35,8 +35,6 @@ class SwerveModuleMk4iSparkMaxNeoCanCoder:
         invert_drive: bool = False,
         invert_steer: bool = False,
         encoder_calibration: float = 0,
-        
-        
     ) -> None:
         """
         Creates a new swerve module at a given location in the robot.
