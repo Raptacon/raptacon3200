@@ -35,15 +35,16 @@ dev.dependencies = [
 
 
 #[tool.poetry.dependencies]
-#[build-system]
-#requires = ["poetry-core"]
-#build-backend = "poetry.core.masonry.api"
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.dependencies]
 flake8 = "^7.1.1"
 pytest = "^8.3.4"
 robotpy-rev = "^2025.0.2"
 robotpy = {version = "2025.3.1.1", extras = ["all"]}
+pydantic = "^2.11.7"
 
 
 [tool.semantic_release]
