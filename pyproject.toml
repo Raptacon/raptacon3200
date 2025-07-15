@@ -19,7 +19,7 @@ classifiers = [
 homepage = "https://github.com/raptacon/raptacon3200"
 "Bug Tracker" = "https://github.com/raptacon/raptacon3200/issues"
 
-requires-python = ">= 3.10"
+requires-python = ">= 3.10,<3.14"
 
 depependencies = [
   "robotpy-rev^2025.0.2"
@@ -43,6 +43,7 @@ dev.dependencies = [
 flake8 = "^7.1.1"
 pytest = "^8.3.4"
 robotpy-rev = "^2025.0.2"
+robotpy = {version = "2025.3.1.1", extras = ["all"]}
 
 
 [tool.semantic_release]
