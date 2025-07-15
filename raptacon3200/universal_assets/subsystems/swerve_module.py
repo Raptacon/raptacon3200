@@ -2,7 +2,7 @@
 from typing import Tuple
 
 # Internal imports
-from utils import sparkMaxUtils
+from raptacon3200.utils import sparkMaxUtils
 
 # Third-party imports
 import phoenix6
@@ -66,7 +66,7 @@ class SwerveModuleMk4iSparkMaxNeoCanCoder:
         # Overall instantiation
         self.swerve_drive_constants = swerve_drive_constants
         self.swerve_module_constants = swerve_level_constants
-        setattr(self.swerve_module_constants, "encoder_calibration", encoder_calibration)
+        setattr(self.swerve_module_constants, "encoderCalibration", encoder_calibration)
         self.name = name
         self.drivetrain_location = Translation2d(*drivetrain_location)
 
@@ -155,7 +155,7 @@ class SwerveModuleMk4iSparkMaxNeoCanCoder:
         (
             self.steer_motor_config.closedLoop
             .setFeedbackSensor(rev.ClosedLoopConfig.FeedbackSensor.kPrimaryEncoder)
-            .pid(*self.swerve_drive_constants.swerve_steer_pid)
+            .pid(*self.swerve_drive_constants.swerveSteerPID)
             .positionWrappingEnabled(True)
             .positionWrappingInputRange(0, 360.0)
         )
@@ -193,7 +193,7 @@ class SwerveModuleMk4iSparkMaxNeoCanCoder:
         (
             self.drive_motor_config.closedLoop
             .setFeedbackSensor(rev.ClosedLoopConfig.FeedbackSensor.kPrimaryEncoder)
-            .pidf(*self.swerve_drive_constants.swerve_drive_pid)
+            .pidf(*self.swerve_drive_constants.swerveDrivePID)
         )
 
         (

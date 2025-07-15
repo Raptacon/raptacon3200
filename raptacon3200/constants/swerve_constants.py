@@ -1,5 +1,5 @@
 import math
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, computed_field
 
 
 class SwerveDriveConsts(BaseModel):
@@ -10,6 +10,14 @@ class SwerveDriveConsts(BaseModel):
     MOI: float = Field(
         default=5.94175290870316,
         description="Robot's moment of inertia, in kg*m^2. Used in PathPlanner"
+    )
+    swerveSteerPID: tuple[float] = Field(
+        default=(0.007, 0, 0),
+        description="PID constants for controlling the steer motor of a swerve module"
+    )
+    swerveDrivePID: tuple[float] = Field(
+        default=(0.1, 0, 0.1, 0),
+        description="PID constants for controlling the drive motor of a swerve module"
     )
 
     moduleFrontLeftX: float = Field(
@@ -137,11 +145,14 @@ class SwerveDriveConsts(BaseModel):
     maxTranslationMPS: float = Field(
         default=4.14528, description="Maximum translation speed of the swerve drive, in meters per second"
     )
-    maxAngularDPS: float = Field(
-        default=math.degrees(maxTranslationMPS / math.hypot(moduleFrontLeftY, moduleFrontLeftX)),
-        description="Maximum rotational speed of the swerve drive, in degrees per second"
-    )
 
+    @computed_field
+    @property
+    def maxAngularDPS(self) -> float:
+        """
+        Maximum rotational speed of the swerve drive, in degrees per second
+        """
+        return math.degrees(self.maxTranslationMPS / math.hypot(self.moduleFrontLeftY, self.moduleFrontLeftX))
 
 class SwerveModuleMk4iConsts(BaseModel):
     kNominalVoltage: float = Field(default=12.0, description="expected voltage at standard system functioning")
@@ -157,38 +168,47 @@ class SwerveModuleMk4iConsts(BaseModel):
         default="NEO",
         description="classification for the motors used in the swerve module. Should be an option in wpimath.system.plant.DCMotor"
     )
+    encoderCalibration: float = Field(default=None, description="value of the absolute encoder when wheel is at 0 position")
 
     wheelDiameter: float = Field(default=0.10033, description="diameter of the drive wheel, in meters")
     driveGearRatio: float = Field(default=8.14, description="ratio between the input to the drive motor gear system and the output")
     steerGearRatio: float = Field(default=150 / 7, description="ratio between the input to the steer motor gear system and the output")
 
-    drivePositionConversionFactor: float = Field(
-        default=(math.pi * wheelDiameter) / (driveGearRatio * kTicksPerRotation),
-        description="""
-            multiplier to convert from drive motor rotations to change in position.
-            resulting units are meters per rotation
+    @computed_field
+    @property
+    def drivePositionConversionFactor(self) -> float:
         """
-    )
-    driveVelocityConversionFactor: float = Field(
-        default=drivePositionConversionFactor / 60.0,
-        description="""
-            multiplier to convert from drive motor rotations to current velocity.
-            resulting units are meters per second
+        Multiplier to convert from drive motor rotations to change in position.
+        Resulting units are meters per rotation
         """
-    )
-    steerPositionConversionFactor: float = Field(
-        default=360 / (steerGearRatio * kTicksPerRotation),
-        description="""
-            multiplier to convert from steer motor rotations to change in position.
-            resulting units are meters per rotation
+        return (math.pi * self.wheelDiameter) / (self.driveGearRatio * self.kTicksPerRotation)
+
+    @computed_field
+    @property
+    def driveVelocityConversionFactor(self) -> float:
         """
-    )
-    steerVelocityConversionFactor: float = Field(
-        default=steerPositionConversionFactor / 60.0,
-        description="""
-            multiplier to convert from steer motor rotations to current velocity.
-            resulting units are meters per second
+        Multiplier to convert from drive motor rotations to current velocity.
+        Resulting units are meters per second
         """
-    )
+        return self.drivePositionConversionFactor / 60.0
+
+    @computed_field
+    @property
+    def steerPositionConversionFactor(self) -> float:
+        """
+        Multiplier to convert from steer motor rotations to change in position.
+        Resulting units are meters per rotation
+        """
+        return 360 / (self.steerGearRatio * self.kTicksPerRotation)
+
+    @computed_field
+    @property
+    def steerVelocityConversionFactor(self) -> float:
+        """
+        Multiplier to convert from steer motor rotations to current velocity.
+        Resulting units are meters per second
+        """
+        return self.steerPositionConversionFactor / 60.0
+
 
     moduleType: str = Field(default="Mk4i_L2", description="name of the module")

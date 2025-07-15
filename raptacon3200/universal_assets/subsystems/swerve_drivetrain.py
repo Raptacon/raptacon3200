@@ -43,37 +43,41 @@ class SwerveDrivetrain(Subsystem):
             SwerveModuleMk4iSparkMaxNeoCanCoder(
                 "frontLeft",
                 (self.swerve_drive_constants.moduleFrontLeftX, self.swerve_drive_constants.moduleFrontLeftY),
-                self.swerve_drive_constants.swerve_module_channels[0],
+                self.robot_config.swerve_module_channels[0],
                 invert_drive=self.swerve_drive_constants.moduleFrontLeftInvertDrive,
                 invert_steer=self.swerve_drive_constants.moduleFrontLeftInvertSteer,
-                encoder_calibration=self.swerve_drive_constants.swerve_abs_encoder_calibrations[0],
+                encoder_calibration=self.robot_config.swerve_abs_encoder_calibrations[0],
+                swerve_drive_constants=swerve_drive_constants,
                 swerve_level_constants=swerve_module_constants
             ),
             SwerveModuleMk4iSparkMaxNeoCanCoder(
                 "frontRight",
                 (self.swerve_drive_constants.moduleFrontRightX, self.swerve_drive_constants.moduleFrontRightY),
-                self.swerve_drive_constants.swerve_module_channels[1],
+                self.robot_config.swerve_module_channels[1],
                 invert_drive=self.swerve_drive_constants.moduleFrontRightInvertDrive,
                 invert_steer=self.swerve_drive_constants.moduleFrontRightInvertSteer,
-                encoder_calibration=self.swerve_drive_constants.swerve_abs_encoder_calibrations[1],
+                encoder_calibration=self.robot_config.swerve_abs_encoder_calibrations[1],
+                swerve_drive_constants=swerve_drive_constants,
                 swerve_level_constants=swerve_module_constants
             ),
             SwerveModuleMk4iSparkMaxNeoCanCoder(
                 "backLeft",
-                (self.swerve_coswerve_drive_constantsnstants.moduleBackLeftX, self.swerve_swerve_drive_constantsconstants.moduleBackLeftY),
-                self.swerve_drive_constants.swerve_module_channels[2],
+                (self.swerve_drive_constants.moduleBackLeftX, self.swerve_drive_constants.moduleBackLeftY),
+                self.robot_config.swerve_module_channels[2],
                 invert_drive=self.swerve_drive_constants.moduleBackLeftInvertDrive,
                 invert_steer=self.swerve_drive_constants.moduleBackLeftInvertSteer,
-                encoder_calibration=self.swerve_drive_constants.swerve_abs_encoder_calibrations[2],
+                encoder_calibration=self.robot_config.swerve_abs_encoder_calibrations[2],
+                swerve_drive_constants=swerve_drive_constants,
                 swerve_level_constants=swerve_module_constants
             ),
             SwerveModuleMk4iSparkMaxNeoCanCoder(
                 "backRight",
                 (self.swerve_drive_constants.moduleBackRightX, self.swerve_drive_constants.moduleBackRightY),
-                self.swerve_drive_constants.swerve_module_channels[3],
+                self.robot_config.swerve_module_channels[3],
                 invert_drive=self.swerve_drive_constants.moduleBackRightInvertDrive,
                 invert_steer=self.swerve_drive_constants.moduleBackRightInvertSteer,
-                encoder_calibration=self.swerve_drive_constants.swerve_abs_encoder_calibrations[3],
+                encoder_calibration=self.robot_config.swerve_abs_encoder_calibrations[3],
+                swerve_drive_constants=swerve_drive_constants,
                 swerve_level_constants=swerve_module_constants
             )
         ]
@@ -428,8 +432,8 @@ class SwerveDrivetrain(Subsystem):
             self.current_robot_relative_speed,
             lambda speeds, feedforwards: self.set_states_from_speeds(speeds, apply_cosine_scaling=False),
             PPHolonomicDriveController(
-                PIDConstants(*self.swerve_drive_constants.pathplanner_translation_pid),
-                PIDConstants(*self.swerve_drive_constants.pathplanner_rotation_pid)
+                PIDConstants(*self.robot_config.pathplanner_translation_pid),
+                PIDConstants(*self.robot_config.pathplanner_rotation_pid)
             ),
             pathplan_config,
             self.flip_to_red_alliance,
