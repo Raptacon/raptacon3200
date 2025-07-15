@@ -191,4 +191,4 @@ class SwerveModuleMk4iConsts(BaseModel):
         """
     )
 
-    moduleType: str = Field(default="Mk4i_L1", description="name of the module")
+    moduleType: str = Field(default="Mk4i_L2", description="name of the module")
