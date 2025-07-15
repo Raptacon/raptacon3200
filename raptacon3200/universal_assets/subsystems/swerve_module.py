@@ -7,7 +7,7 @@ from utils import sparkMaxUtils
 # Third-party imports
 import phoenix6
 import rev
-from wpimath.controller import SimpleMotorFeedforward
+from wpimath.controller import SimpleMotorFeedforwardMeters
 from wpimath.kinematics import SwerveModulePosition, SwerveModuleState
 from wpimath.geometry import Rotation2d, Translation2d
 
@@ -85,7 +85,7 @@ class SwerveModuleMk4iSparkMaxNeoCanCoder:
         self.steer_motor_encoder = self.steer_motor.getEncoder()
 
         self.drive_motor_pid = self.drive_motor.getClosedLoopController()
-        self.drive_motor_feedforward = SimpleMotorFeedforward(
+        self.drive_motor_feedforward = SimpleMotorFeedforwardMeters(
             kS=0,
             kV=self.swerve_module_constants.kNominalVoltage / self.swerve_drive_constants.maxTranslationMPS,
             kA=0,
