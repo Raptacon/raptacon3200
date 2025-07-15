@@ -327,8 +327,7 @@ class SwerveModuleMk4iSparkMaxNeoCanCoder:
             state_speed *= cosine_scaler
 
         self.steer_motor_pid.setReference(
-            state_degrees, rev.SparkLowLevel.ControlType.kPosition, rev.ClosedLoopSlot.kSlot0,
-            self.drive_motor_feedforward.calculate(current_speed, state_speed)
+            state_degrees, rev.SparkLowLevel.ControlType.kPosition, rev.ClosedLoopSlot.kSlot0
         )
         self.drive_motor_pid.setReference(
             state_speed, rev.SparkLowLevel.ControlType.kVelocity, rev.ClosedLoopSlot.kSlot0,
