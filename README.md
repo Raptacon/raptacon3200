@@ -22,7 +22,7 @@ Authors
 
 Nathan Beasley (nathan@.com)
 Chris Hirsch (chris@base2technology.com)
-Jordan 
+Jordan  
 
 Contributors:
 
