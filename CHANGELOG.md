@@ -1,7 +1,20 @@
 # CHANGELOG
 
 
+## v2025.2.4 (2025-07-31)
+
+
 ## v2025.2.3 (2025-07-31)
+
+### Chores
+
+- **release**: Bump version to 2025.2.3
+  ([`6992c4e`](https://github.com/Raptacon/raptacon3200/commit/6992c4ef5bc1d946da632566b2c75bc94276e578))
+
+### Continuous Integration
+
+- 🎡 Added GH token
+  ([`c33ddf5`](https://github.com/Raptacon/raptacon3200/commit/c33ddf546190959790240bb51d7ef4615f30dd93))
 
 ### Features
 
