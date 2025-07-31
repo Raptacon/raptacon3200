@@ -48,6 +48,7 @@ jobs:
       - name: Auto-bump minor version and release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_WRITE_ACCESS }}
+          GH_TOKEN: ${{ secrets.GH_WRITE_ACCESS }}
         run: |
           # Force a minor version bump by creating a feat commit if needed
           CURRENT_VERSION=$(poetry version -s)
