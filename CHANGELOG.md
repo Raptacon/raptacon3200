@@ -1,9 +1,40 @@
 # CHANGELOG
 
 
+## v2025.2.1 (2025-07-30)
 ## v2025.2.0 (2025-03-14)
 
 ### Chores
+
+- 🤖 bump
+  ([`c30a4a1`](https://github.com/Raptacon/raptacon3200/commit/c30a4a12cf8abf8823ecd96b3cc78be7eb5df96b))
+
+
+## v2025.2.0 (2025-07-30)
+
+### Chores
+
+- **deps**: Bump cryptography from 44.0.0 to 44.0.1
+  ([#30](https://github.com/Raptacon/raptacon3200/pull/30),
+  [`0dc4b7e`](https://github.com/Raptacon/raptacon3200/commit/0dc4b7e3a32d160fece4d2ded743b1e534a439ae))
+
+Bumps [cryptography](https://github.com/pyca/cryptography) from 44.0.0 to 44.0.1. -
+  [Changelog](https://github.com/pyca/cryptography/blob/main/CHANGELOG.rst) -
+  [Commits](https://github.com/pyca/cryptography/compare/44.0.0...44.0.1)
+
+--- updated-dependencies: - dependency-name: cryptography dependency-version: 44.0.1
+
+dependency-type: indirect ...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+
+
+### Chores
+
+- **release**: Bump version to 0.1.0
+  ([`d934dfe`](https://github.com/Raptacon/raptacon3200/commit/d934dfe6544f0d17edaf6f2417e5b98c11120d44))
 
 - **release**: Bump version to 2025.0.3
   ([`ce30480`](https://github.com/Raptacon/raptacon3200/commit/ce3048051ec03898e61d1e46005040abb5b71a03))
@@ -116,8 +147,6 @@ Co-authored-by: Chris Hirsch <chris@kiatek.com>
 ---------
 
 Co-authored-by: Chris Hirsch <chris@kiatek.com>
-<<<<<<< HEAD
-=======
 
 - 💡 Removed robot specific constants ([#7](https://github.com/Raptacon/raptacon3200/pull/7),
   [`6116bde`](https://github.com/Raptacon/raptacon3200/commit/6116bde106b0438afa56f0bd08483e24b7668f6e))
