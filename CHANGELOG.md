@@ -1,7 +1,20 @@
 # CHANGELOG
 
 
+## v2025.2.5 (2025-07-31)
+
+### Features
+
+- Test conventional commit
+  ([`f8126e5`](https://github.com/Raptacon/raptacon3200/commit/f8126e5afe12db0485c09905c89f246f1b9523db))
+
+
 ## v2025.2.4 (2025-07-31)
+
+### Chores
+
+- **release**: Bump version to 2025.2.4
+  ([`7d27cad`](https://github.com/Raptacon/raptacon3200/commit/7d27cad1e9a31db68738ebade714497294ab06fa))
 
 
 ## v2025.2.3 (2025-07-31)
