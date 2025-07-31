@@ -44,12 +44,12 @@ python-semantic-release = "^9.0.0"
 
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
+tag_format = "v{version}"
 upload_to_pypi = false
 upload_to_release = true
 commit_message = "chore(release): bump version to {version}"
 version_source = "commit"
 major_on_zero = false
-tag_format = "v{version}"
 logging_use_named_masks = false
 allow_zero_version = true
 no_git_verify = false
@@ -66,10 +66,13 @@ exclude_commit_patterns = []
 changelog_file = "CHANGELOG.md"
 
 [tool.semantic_release.commit_parser_options]
-minor_tags = ["feat", "feature"]
-patch_tags = ["fix", "perf", "patch"]
+# minor_tags = ["feat", "feature"]
+minor_tags = []
+#patch_tags = ["fix", "perf", "patch"]
+patch_tags = ["feat", "fix", "perf", "patch", "build", "chore", "ci", "docs", "style", "refactor", "test"]
 # Force every commit to be at least a minor bump
-default_bump_level = 1
+#default_bump_level = 1
+default_bump_level = 0  # 0 = patch, 1 = minor, 2 = major
 allowed_tags = ["feat", "fix", "perf", "build", "chore", "ci", "docs", "style", "refactor", "test"]
 
 [tool.semantic_release.remote]
