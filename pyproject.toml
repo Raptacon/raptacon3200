@@ -55,7 +55,7 @@ allow_zero_version = true
 no_git_verify = false
 
 [tool.semantic_release.branches.main]
-match = "(main|master)"
+match = "(main)"
 prerelease_token = "rc"
 prerelease = false
 
