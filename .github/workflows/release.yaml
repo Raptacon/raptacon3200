@@ -5,7 +5,7 @@ on:
     branches:
       # Only build and release when the branch contains feat/feature/etc
       - main
-      - (^feature|fix|refactor|chore|docs|style|test|ci)/.*
+      - (^feature|feat|fix|refactor|chore|docs|style|test|ci)/.*
 
 jobs:
   build:
