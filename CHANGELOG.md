@@ -1,12 +1,23 @@
 # CHANGELOG
 
 
+## v2025.2.6-dev.4 (2025-08-07)
+
+
 ## v2025.2.6-dev.3 (2025-08-07)
+
+### Chores
+
+- **release**: Bump version to 2025.2.6-dev.3
+  ([`9b0dfee`](https://github.com/Raptacon/raptacon3200/commit/9b0dfeee2bdf29731610b7a102e1f862c169e004))
 
 ### Continuous Integration
 
 - 🎡 Added feat/ vs feature/
   ([`89266cd`](https://github.com/Raptacon/raptacon3200/commit/89266cd55a6d4991e7d5b85bc99a94d82b342064))
+
+- 🎡 Don't build/release for pushed tags
+  ([`5f085a5`](https://github.com/Raptacon/raptacon3200/commit/5f085a5445b3e7ff3bc4ceebb66566926222f239))
 
 - 🎡 properly restrict on branches
   ([`20279bc`](https://github.com/Raptacon/raptacon3200/commit/20279bcee2ed4aef719d8c8efd287060ed36a9cb))
