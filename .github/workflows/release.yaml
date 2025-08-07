@@ -2,6 +2,11 @@ name: Build and Release
 
 on:
   push:
+    branches:
+      # Only build and release when the branch contains feat/feature/etc
+      - main
+      - (^feature|fix|refactor|chore|docs|style|test|ci)/.*
+
 jobs:
   build:
     name: Build and Publish
