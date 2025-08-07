@@ -3,7 +3,17 @@ name: Build and Release
 on:
   push:
     branches:
+      # Only build and release when the branch contains feat/feature/etc
       - main
+      - "feat/**"
+      - "feature/**"
+      - "fix/**"
+      - "hotfix/**"
+      - "bugfix/**"
+      # Don't build/release on tags
+    tags:
+      - "!v*.*.*"
+
 jobs:
   build:
     name: Build and Publish
@@ -21,7 +31,7 @@ jobs:
           token: ${{ secrets.GH_WRITE_ACCESS }}
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
