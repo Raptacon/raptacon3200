@@ -1,7 +1,28 @@
 # CHANGELOG
 
 
+## v2025.2.6-dev.3 (2025-08-07)
+
+### Continuous Integration
+
+- 🎡 Added feat/ vs feature/
+  ([`89266cd`](https://github.com/Raptacon/raptacon3200/commit/89266cd55a6d4991e7d5b85bc99a94d82b342064))
+
+- 🎡 properly restrict on branches
+  ([`20279bc`](https://github.com/Raptacon/raptacon3200/commit/20279bcee2ed4aef719d8c8efd287060ed36a9cb))
+
+
 ## v2025.2.6-dev.2 (2025-08-07)
+
+### Chores
+
+- **release**: Bump version to 2025.2.6-dev.2
+  ([`a75fb7e`](https://github.com/Raptacon/raptacon3200/commit/a75fb7e1218d16185a73cad0bd978394b91cca99))
+
+### Continuous Integration
+
+- 🎡 Build/Release only for fix/feature/bug branches not tags
+  ([`d0e7142`](https://github.com/Raptacon/raptacon3200/commit/d0e714253f8423397e696e6ed4d0793f8e5d1475))
 
 
 ## v2025.2.6-dev.1 (2025-08-07)
