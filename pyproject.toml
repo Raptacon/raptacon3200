@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [project]
 name = "raptacon3200"
-version = "2025.2.6-dev.1"
+version = "2025.2.6-dev.2"
 description = "A FRC Raptacon 3200 Robot Common Library"
 requires-python = ">= 3.12"
 dynamic = ["version", "description", "authors", "readme", "dependencies"]

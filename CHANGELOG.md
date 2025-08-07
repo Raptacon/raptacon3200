@@ -1,9 +1,20 @@
 # CHANGELOG
 
 
+## v2025.2.6-dev.2 (2025-08-07)
+
+
 ## v2025.2.6-dev.1 (2025-08-07)
 
+### Chores
+
+- **release**: Bump version to 2025.2.6-dev.1
+  ([`80c86a2`](https://github.com/Raptacon/raptacon3200/commit/80c86a234dffd2d45b0c4a1b0a3176e761180c29))
+
 ### Continuous Integration
+
+- 🎡 Added bug to dev branch
+  ([`d0dbff3`](https://github.com/Raptacon/raptacon3200/commit/d0dbff30927ea2f671822f66f81775d9565da089))
 
 - 🎡 Added dev builds
   ([`485e2c2`](https://github.com/Raptacon/raptacon3200/commit/485e2c2e58d643bcea9f1e319edc1accadeef729))
