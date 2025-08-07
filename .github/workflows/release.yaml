@@ -2,8 +2,6 @@ name: Build and Release
 
 on:
   push:
-    branches:
-      - main
 jobs:
   build:
     name: Build and Publish
@@ -21,7 +19,7 @@ jobs:
           token: ${{ secrets.GH_WRITE_ACCESS }}
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
