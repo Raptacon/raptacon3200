@@ -10,6 +10,9 @@ on:
       - "fix/**"
       - "hotfix/**"
       - "bugfix/**"
+      # Don't build/release on tags
+    tags:
+      - "!v*.*.*"
 
 jobs:
   build:
