@@ -56,8 +56,8 @@ no_git_verify = false
 
 [tool.semantic_release.branches.main]
 match = "(main)"
-prerelease_token = "rc"
-prerelease = false
+prerelease_token = "dev"
+prerelease = true
 
 [tool.semantic_release.changelog]
 exclude_commit_patterns = []
