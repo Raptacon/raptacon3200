@@ -1,7 +1,15 @@
 # CHANGELOG
 
 
+## v2025.2.7 (2025-08-13)
+
+
 ## v2025.2.6 (2025-08-13)
+
+### Chores
+
+- **release**: Bump version to 2025.2.6
+  ([`95487a0`](https://github.com/Raptacon/raptacon3200/commit/95487a020e114eec4caf2a96ccc9da3e5c9dbce4))
 
 ### Testing
 
