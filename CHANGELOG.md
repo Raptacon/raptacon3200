@@ -1,6 +1,28 @@
 # CHANGELOG
 
 
+## v2025.2.6-dev.5 (2025-08-13)
+
+### Continuous Integration
+
+- 🎡 look for proper feature branch
+  ([`c9facc6`](https://github.com/Raptacon/raptacon3200/commit/c9facc6debba034fee1996fd185b82ded680bee8))
+
+### Testing
+
+- 💍 build
+  ([`6c1060f`](https://github.com/Raptacon/raptacon3200/commit/6c1060f670ff42e07935c0af512fed266c1dd28c))
+
+- 💍 test build
+  ([`a2417b1`](https://github.com/Raptacon/raptacon3200/commit/a2417b18321d3034965cd51c53d643440aa60376))
+
+- 💍 test release
+  ([`86f37aa`](https://github.com/Raptacon/raptacon3200/commit/86f37aaff51f705331a3a422038d4791ffaee6ab))
+
+- 💍 testing feature branch
+  ([`7fd097b`](https://github.com/Raptacon/raptacon3200/commit/7fd097b5cb07f76269778ba3c9795ed39a4f1fc6))
+
+
 ## v2025.2.6-dev.3 (2025-08-07)
 
 ### Chores
