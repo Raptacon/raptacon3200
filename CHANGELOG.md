@@ -1,7 +1,20 @@
 # CHANGELOG
 
 
+## v2025.2.6-dev.6 (2025-08-14)
+
+### Continuous Integration
+
+- 🎡 release
+  ([`2e066ce`](https://github.com/Raptacon/raptacon3200/commit/2e066ce71b855b6988e91ad19d7faec7b5663f72))
+
+
 ## v2025.2.6-dev.5 (2025-08-13)
+
+### Chores
+
+- **release**: Bump version to 2025.2.6-dev.5
+  ([`1913791`](https://github.com/Raptacon/raptacon3200/commit/1913791210e2d0ff6e9f82e02aaa7665ffd5ecb8))
 
 ### Continuous Integration
 
