@@ -60,13 +60,13 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_WRITE_ACCESS }}
         run: |
           # Force a minor version bump by creating a feat commit if needed
-          CURRENT_VERSION=$(poetry version -s)
+          CURRENT_VERSION=$(poetry version -vv -s)
           echo "Current version: $CURRENT_VERSION"
 
           # Run semantic release to bump version
-          poetry run semantic-release version
+          poetry run semantic-release -vv version
 
-          NEW_VERSION=$(poetry version -s)
+          NEW_VERSION=$(poetry version -vv -s)
           echo "New version: $NEW_VERSION"
 
           if [[ "$CURRENT_VERSION" != "$NEW_VERSION" ]]; then
