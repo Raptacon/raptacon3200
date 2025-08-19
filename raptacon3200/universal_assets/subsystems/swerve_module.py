@@ -59,7 +59,7 @@ class SwerveModuleMk4iSparkMaxNeoCanCoder:
             encoder_calibration: the starting position of the absolute encoder when the long orientation of the wheel
                 follows the X (front-to-back) axis and the bevel faces left
             update_period: how often, in seconds, to update the feedforward controller on the drive motor
-            
+
         Returns
             None: class initialization executed upon construction
         """
