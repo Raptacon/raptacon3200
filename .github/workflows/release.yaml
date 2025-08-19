@@ -3,10 +3,16 @@ name: Build and Release
 on:
   push:
     branches:
+      # Only build and release when the branch contains feat/feature/etc
       - main
-      - master
-      # TODO remove before merge
-      - ci/build_only_on_new_version
+      - "feat/**"
+      - "feature/**"
+      - "fix/**"
+      - "hotfix/**"
+      - "bugfix/**"
+      # Don't build/release on tags
+    tags:
+      - "!v*.*.*"
 
 jobs:
   build:
@@ -16,50 +22,60 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
-    
+
     steps:
       - name: Check out code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GH_WRITE_ACCESS }}
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install python-semantic-release poetry
+          python-version: "3.12"
 
       - name: Install Poetry
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Configure Poetry
+        run: |
           poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
           #poetry config pypi-token.testpypi ${{ secrets.TEST_PYPI_TOKEN }}
 
-      - name: Semantic Versioning
+      - name: Install dependencies
+        run: |
+          poetry install
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Auto-bump minor version and release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_WRITE_ACCESS }}
+          GH_TOKEN: ${{ secrets.GH_WRITE_ACCESS }}
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "action@github.com"
-          poetry version -s
-          NO_RELEASE=$(poetry run semantic-release version --print 2>&1| grep "No release will be made")
-          # If we don't find the "No release will be made" text then we know we need to release
-          printf "NO_RELEASE=$NO_RELEASE\n"
+          # Force a minor version bump by creating a feat commit if needed
+          CURRENT_VERSION=$(poetry version -vv -s)
+          echo "Current version: $CURRENT_VERSION"
 
-          if [[ -z $NO_RELEASE ]]; then
-            poetry run semantic-release -vv version
-            VERSION=$(poetry version -s)
-            echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          # Run semantic release to bump version
+          poetry run semantic-release -vv version
+
+          NEW_VERSION=$(poetry version -vv -s)
+          echo "New version: $NEW_VERSION"
+
+          if [[ "$CURRENT_VERSION" != "$NEW_VERSION" ]]; then
+            echo "VERSION=${NEW_VERSION}" >> $GITHUB_ENV
+            echo "Version was bumped from $CURRENT_VERSION to $NEW_VERSION"
+          else
+            echo "No version change detected"
           fi
-          printf "VERSION=$VERSION\n"
-
-
       - name: Build and publish
-        # Don't build if there is not a new version
         if: env.VERSION != ''
         run: |
           poetry build
