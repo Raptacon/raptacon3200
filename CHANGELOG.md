@@ -1,7 +1,28 @@
 # CHANGELOG
 
 
+## v2025.2.8-dev-fix-test-fix-version.1 (2025-12-23)
+
+### Bug Fixes
+
+- Second fix commit
+  ([`5853f9e`](https://github.com/Raptacon/raptacon3200/commit/5853f9edc3f3d2115d87c5f3886351e1c55486ba))
+
+- Test fix branch versioning
+  ([`1add1c4`](https://github.com/Raptacon/raptacon3200/commit/1add1c495471dfe347cb09e5e2975e9840e4ef32))
+
+### Refactoring
+
+- 💡 Should allow version per branch now
+  ([`a97512c`](https://github.com/Raptacon/raptacon3200/commit/a97512c4b19dd7bfcbd5d6c039121af677ead21f))
+
+
 ## v2025.2.7 (2025-08-13)
+
+### Chores
+
+- **release**: Bump version to 2025.2.7
+  ([`c62efba`](https://github.com/Raptacon/raptacon3200/commit/c62efbab63ce9ccd4d5b9126d520242359d97018))
 
 
 ## v2025.2.6 (2025-08-13)
