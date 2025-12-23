@@ -54,29 +54,32 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Auto-bump minor version and release
+      - name: Auto-bump version and release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_WRITE_ACCESS }}
           GH_TOKEN: ${{ secrets.GH_WRITE_ACCESS }}
         run: |
-          # Force a minor version bump by creating a feat commit if needed
-          CURRENT_VERSION=$(poetry version -vv -s)
+          CURRENT_VERSION=$(poetry version -s)
           echo "Current version: $CURRENT_VERSION"
+          echo "Branch: ${{ github.ref_name }}"
 
           # Run semantic release to bump version
           poetry run semantic-release -vv version
 
-          NEW_VERSION=$(poetry version -vv -s)
+          NEW_VERSION=$(poetry version -s)
           echo "New version: $NEW_VERSION"
 
           if [[ "$CURRENT_VERSION" != "$NEW_VERSION" ]]; then
-            echo "VERSION=${NEW_VERSION}" >> $GITHUB_ENV
+            echo "VERSION_CHANGED=true" >> $GITHUB_ENV
             echo "Version was bumped from $CURRENT_VERSION to $NEW_VERSION"
           else
+            echo "VERSION_CHANGED=false" >> $GITHUB_ENV
             echo "No version change detected"
           fi
+          echo "VERSION=${NEW_VERSION}" >> $GITHUB_ENV
+
       - name: Build and publish
-        if: env.VERSION != ''
+        if: env.VERSION_CHANGED == 'true'
         run: |
           poetry build
           poetry publish

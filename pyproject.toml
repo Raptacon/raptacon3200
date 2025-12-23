@@ -59,7 +59,7 @@ match = "(main)"
 prerelease = false
 
 [tool.semantic_release.branches.feature]
-match = '(feature|feat|develop|bug)\/.*'
+match = '(feature|feat|develop|bug|fix|hotfix|bugfix)\/.*'
 prerelease_token = "dev"
 prerelease = true
 
