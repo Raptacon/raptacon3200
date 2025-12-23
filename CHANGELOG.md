@@ -1,12 +1,25 @@
 # CHANGELOG
 
 
+## v2025.2.9-b.1 (2025-12-23)
+
+### Bug Fixes
+
+- Test beta versioning system
+  ([`fc7125f`](https://github.com/Raptacon/raptacon3200/commit/fc7125f5fc999759caeacc9bcbe81e5512870dec))
+
+
 ## v2025.2.8 (2025-12-23)
 
 ### Bug Fixes
 
 - Use alpha/beta prerelease tokens for parallel branch development
   ([`c080535`](https://github.com/Raptacon/raptacon3200/commit/c080535d84076ae6f36dd40fe6b803860a4e055b))
+
+### Chores
+
+- **release**: Bump version to 2025.2.8
+  ([`abaa6bd`](https://github.com/Raptacon/raptacon3200/commit/abaa6bd0f88dd8dbecc2247b677c3eab7b13f4bc))
 
 
 ## v2025.2.7 (2025-08-13)
