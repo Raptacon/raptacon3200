@@ -1,7 +1,20 @@
 # CHANGELOG
 
 
+## v2025.2.8-dev.2 (2025-12-23)
+
+### Features
+
+- Second commit for versioning test
+  ([`b39b733`](https://github.com/Raptacon/raptacon3200/commit/b39b7336ccaa2e1e674a9f32a263a426887cbed9))
+
+
 ## v2025.2.8-dev.1 (2025-12-23)
+
+### Chores
+
+- **release**: Bump version to 2025.2.8-dev.1
+  ([`0ee4b94`](https://github.com/Raptacon/raptacon3200/commit/0ee4b9477d5184de930fab3dff320fa2504961e4))
 
 ### Features
 
