@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [project]
 name = "raptacon3200"
-version = "2025.2.8-dev-fix-test-fix-version.1"
+version = "2025.2.7"
 description = "A FRC Raptacon 3200 Robot Common Library"
 requires-python = ">= 3.12"
 dynamic = ["version", "description", "authors", "readme", "dependencies"]
@@ -59,8 +59,13 @@ match = "(main)"
 prerelease = false
 
 [tool.semantic_release.branches.feature]
-match = '(feature|feat|develop|bug|fix|hotfix|bugfix)\/.*'
-prerelease_token = "dev-fix-test-fix-version"
+match = '(feature|feat|develop)\/.*'
+prerelease_token = "a"
+prerelease = true
+
+[tool.semantic_release.branches.fix]
+match = '(fix|hotfix|bugfix|bug)\/.*'
+prerelease_token = "b"
 prerelease = true
 
 
