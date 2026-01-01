@@ -54,6 +54,20 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Reset to last stable version (main only)
+        if: github.ref_name == 'main'
+        run: |
+          # Get the last stable version tag (no prerelease suffix like a1, b1, dev1)
+          LAST_STABLE=$(git tag -l 'v*' --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
+          if [ -n "$LAST_STABLE" ]; then
+            VERSION=${LAST_STABLE#v}
+            echo "Resetting version to last stable: $VERSION"
+            sed -i "s/^version = .*/version = \"$VERSION\"/" pyproject.toml
+            grep "^version" pyproject.toml
+          else
+            echo "No stable version tag found, keeping current version"
+          fi
+
       - name: Auto-bump version and release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_WRITE_ACCESS }}
