@@ -1,12 +1,12 @@
 # CHANGELOG
 
 
-## v2025.2.9-b.1 (2025-12-23)
+## v2025.2.9 (2026-01-01)
 
 ### Bug Fixes
 
-- Test beta versioning system
-  ([`fc7125f`](https://github.com/Raptacon/raptacon3200/commit/fc7125f5fc999759caeacc9bcbe81e5512870dec))
+- 🐛 Reset version to last stable and bump on merge
+  ([`40fc794`](https://github.com/Raptacon/raptacon3200/commit/40fc7944c9cf452cabd763ab1001713d9ea6167b))
 
 
 ## v2025.2.8 (2025-12-23)
