@@ -1,12 +1,25 @@
 # CHANGELOG
 
 
+## v2025.2.10-a.1 (2026-01-02)
+
+### Features
+
+- Full workflow test
+  ([`5b34412`](https://github.com/Raptacon/raptacon3200/commit/5b34412180b96bd4b57b1ba71cea69e4c9dbbe06))
+
+
 ## v2025.2.9 (2026-01-01)
 
 ### Bug Fixes
 
 - 🐛 Reset version to last stable and bump on merge
   ([`40fc794`](https://github.com/Raptacon/raptacon3200/commit/40fc7944c9cf452cabd763ab1001713d9ea6167b))
+
+### Chores
+
+- **release**: Bump version to 2025.2.9
+  ([`8dc1cde`](https://github.com/Raptacon/raptacon3200/commit/8dc1cdec61a36dd8fe710ffd60a691910426ff50))
 
 
 ## v2025.2.8 (2025-12-23)
