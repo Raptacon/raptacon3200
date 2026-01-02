@@ -1,12 +1,12 @@
 # CHANGELOG
 
 
-## v2025.2.10-a.1 (2026-01-02)
+## v2025.2.10 (2026-01-02)
 
-### Features
+### Bug Fixes
 
-- Full workflow test
-  ([`5b34412`](https://github.com/Raptacon/raptacon3200/commit/5b34412180b96bd4b57b1ba71cea69e4c9dbbe06))
+- Force patch bump on main when semantic-release skips
+  ([`8b75c19`](https://github.com/Raptacon/raptacon3200/commit/8b75c19087a79b03f1c5329a7bb75005e8191bac))
 
 
 ## v2025.2.9 (2026-01-01)
