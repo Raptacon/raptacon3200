@@ -1,12 +1,25 @@
 # CHANGELOG
 
 
+## v2025.2.11 (2026-01-02)
+
+
 ## v2025.2.10 (2026-01-02)
 
 ### Bug Fixes
 
 - Force patch bump on main when semantic-release skips
   ([`8b75c19`](https://github.com/Raptacon/raptacon3200/commit/8b75c19087a79b03f1c5329a7bb75005e8191bac))
+
+### Chores
+
+- **release**: Bump version to 2025.2.10
+  ([`6ebabd3`](https://github.com/Raptacon/raptacon3200/commit/6ebabd36beed65bac25ac77674a2c2b4277ffece))
+
+### Documentation
+
+- ✏️ Added docs on how to contribute and version info
+  ([`3319876`](https://github.com/Raptacon/raptacon3200/commit/3319876b134c2d97f42238997211bad2064b7691))
 
 
 ## v2025.2.9 (2026-01-01)
