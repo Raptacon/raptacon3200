@@ -1,7 +1,20 @@
 # CHANGELOG
 
 
+## v2025.2.12 (2026-01-02)
+
+
 ## v2025.2.11 (2026-01-02)
+
+### Chores
+
+- **release**: Bump version to 2025.2.11
+  ([`f47bc87`](https://github.com/Raptacon/raptacon3200/commit/f47bc87aa236b119cbe811a1ea0d2821e3f2197e))
+
+### Documentation
+
+- ✏️ documented how to bump version for each season/year
+  ([`741da85`](https://github.com/Raptacon/raptacon3200/commit/741da85100bc76b88febc7c4ffa3cea7e0380bca))
 
 
 ## v2025.2.10 (2026-01-02)
