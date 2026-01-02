@@ -87,3 +87,29 @@ pip install raptacon3200==2025.2.10a1 --pre
 | Start bug fix | `git checkout -b fix/my-bugfix` |
 | Push changes | `git push` |
 | Install your test version | `pip install raptacon3200==VERSION --pre` |
+
+---
+
+## Yearly Version Bump (Maintainers Only)
+
+This project uses Calendar Versioning (CalVer): `YYYY.MAJOR.MINOR`
+
+At the start of each year (or season), a maintainer should bump the year:
+
+```bash
+# 1. Checkout main and pull latest
+git checkout main
+git pull
+
+# 2. Update version in pyproject.toml to new year
+#    Change: version = "2025.X.Y"
+#    To:     version = "2026.0.0"
+
+# 3. Commit and tag
+git add pyproject.toml
+git commit -m "chore: bump version to 2026.0.0 for new season"
+git tag v2026.0.0
+git push origin main --tags
+```
+
+The next merge to main will automatically become `2026.0.1`.
