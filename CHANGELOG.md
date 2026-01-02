@@ -1,12 +1,25 @@
 # CHANGELOG
 
 
+## v2025.2.12-a.2 (2026-01-02)
+
+
 ## v2025.2.12-a.1 (2026-01-02)
 
 ### Bug Fixes
 
 - Add robotpy and pyfrc dev dependencies for testing
   ([`472e76b`](https://github.com/Raptacon/raptacon3200/commit/472e76bc241d0721d505486e59d6326bdf19923d))
+
+### Chores
+
+- **release**: Bump version to 2025.2.12-a.1
+  ([`1a54f95`](https://github.com/Raptacon/raptacon3200/commit/1a54f95ef7d3425fb017d2032b045a8c5a834514))
+
+### Testing
+
+- 💍 Fixed an issue with importing the leds in the led UT
+  ([`223f00a`](https://github.com/Raptacon/raptacon3200/commit/223f00acc6cd9ee0bba1749a42f5da95b3d011c9))
 
 
 ## v2025.2.11 (2026-01-02)
