@@ -1,7 +1,59 @@
 # CHANGELOG
 
 
+## v2025.2.11 (2026-01-02)
+
+
+## v2025.2.10 (2026-01-02)
+
+### Bug Fixes
+
+- Force patch bump on main when semantic-release skips
+  ([`8b75c19`](https://github.com/Raptacon/raptacon3200/commit/8b75c19087a79b03f1c5329a7bb75005e8191bac))
+
+### Chores
+
+- **release**: Bump version to 2025.2.10
+  ([`6ebabd3`](https://github.com/Raptacon/raptacon3200/commit/6ebabd36beed65bac25ac77674a2c2b4277ffece))
+
+### Documentation
+
+- ✏️ Added docs on how to contribute and version info
+  ([`3319876`](https://github.com/Raptacon/raptacon3200/commit/3319876b134c2d97f42238997211bad2064b7691))
+
+
+## v2025.2.9 (2026-01-01)
+
+### Bug Fixes
+
+- 🐛 Reset version to last stable and bump on merge
+  ([`40fc794`](https://github.com/Raptacon/raptacon3200/commit/40fc7944c9cf452cabd763ab1001713d9ea6167b))
+
+### Chores
+
+- **release**: Bump version to 2025.2.9
+  ([`8dc1cde`](https://github.com/Raptacon/raptacon3200/commit/8dc1cdec61a36dd8fe710ffd60a691910426ff50))
+
+
+## v2025.2.8 (2025-12-23)
+
+### Bug Fixes
+
+- Use alpha/beta prerelease tokens for parallel branch development
+  ([`c080535`](https://github.com/Raptacon/raptacon3200/commit/c080535d84076ae6f36dd40fe6b803860a4e055b))
+
+### Chores
+
+- **release**: Bump version to 2025.2.8
+  ([`abaa6bd`](https://github.com/Raptacon/raptacon3200/commit/abaa6bd0f88dd8dbecc2247b677c3eab7b13f4bc))
+
+
 ## v2025.2.7 (2025-08-13)
+
+### Chores
+
+- **release**: Bump version to 2025.2.7
+  ([`c62efba`](https://github.com/Raptacon/raptacon3200/commit/c62efbab63ce9ccd4d5b9126d520242359d97018))
 
 
 ## v2025.2.6 (2025-08-13)

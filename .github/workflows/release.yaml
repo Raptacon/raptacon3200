@@ -54,29 +54,81 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Auto-bump minor version and release
+      - name: Reset to last stable version (main only)
+        if: github.ref_name == 'main'
+        run: |
+          # Get the last stable version tag (no prerelease suffix like a1, b1, dev1)
+          LAST_STABLE=$(git tag -l 'v*' --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
+          if [ -n "$LAST_STABLE" ]; then
+            VERSION=${LAST_STABLE#v}
+            echo "Resetting version to last stable: $VERSION"
+            sed -i "s/^version = .*/version = \"$VERSION\"/" pyproject.toml
+            grep "^version" pyproject.toml
+          else
+            echo "No stable version tag found, keeping current version"
+          fi
+
+      - name: Auto-bump version and release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_WRITE_ACCESS }}
           GH_TOKEN: ${{ secrets.GH_WRITE_ACCESS }}
         run: |
-          # Force a minor version bump by creating a feat commit if needed
-          CURRENT_VERSION=$(poetry version -vv -s)
+          CURRENT_VERSION=$(poetry version -s)
           echo "Current version: $CURRENT_VERSION"
+          echo "Branch: ${{ github.ref_name }}"
 
           # Run semantic release to bump version
           poetry run semantic-release -vv version
 
-          NEW_VERSION=$(poetry version -vv -s)
+          NEW_VERSION=$(poetry version -s)
           echo "New version: $NEW_VERSION"
 
           if [[ "$CURRENT_VERSION" != "$NEW_VERSION" ]]; then
-            echo "VERSION=${NEW_VERSION}" >> $GITHUB_ENV
+            echo "VERSION_CHANGED=true" >> $GITHUB_ENV
             echo "Version was bumped from $CURRENT_VERSION to $NEW_VERSION"
           else
-            echo "No version change detected"
+            echo "VERSION_CHANGED=false" >> $GITHUB_ENV
+            echo "No version change detected by semantic-release"
           fi
+          echo "VERSION=${NEW_VERSION}" >> $GITHUB_ENV
+
+      - name: Force patch bump on main if needed
+        if: github.ref_name == 'main' && env.VERSION_CHANGED == 'false'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_WRITE_ACCESS }}
+          GH_TOKEN: ${{ secrets.GH_WRITE_ACCESS }}
+        run: |
+          # Get last stable tag
+          LAST_STABLE=$(git tag -l 'v*' --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
+
+          # Check if there are commits since last stable tag
+          COMMITS_SINCE=$(git rev-list ${LAST_STABLE}..HEAD --count 2>/dev/null || echo "0")
+          echo "Commits since ${LAST_STABLE}: ${COMMITS_SINCE}"
+
+          if [ "$COMMITS_SINCE" -gt "0" ]; then
+            echo "Forcing patch bump on main branch"
+
+            # Bump patch version manually
+            CURRENT=$(poetry version -s)
+            poetry version patch
+            NEW_VERSION=$(poetry version -s)
+
+            echo "Force bumped from $CURRENT to $NEW_VERSION"
+
+            # Commit, tag, and push
+            git add pyproject.toml
+            git commit -m "chore(release): bump version to ${NEW_VERSION}"
+            git tag "v${NEW_VERSION}"
+            git push origin main --tags
+
+            echo "VERSION_CHANGED=true" >> $GITHUB_ENV
+            echo "VERSION=${NEW_VERSION}" >> $GITHUB_ENV
+          else
+            echo "No commits since last stable tag, skipping"
+          fi
+
       - name: Build and publish
-        if: env.VERSION != ''
+        if: env.VERSION_CHANGED == 'true'
         run: |
           poetry build
           poetry publish
