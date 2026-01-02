@@ -1,7 +1,20 @@
 # CHANGELOG
 
 
+## v2025.2.12-a.1 (2026-01-02)
+
+### Bug Fixes
+
+- Add robotpy and pyfrc dev dependencies for testing
+  ([`472e76b`](https://github.com/Raptacon/raptacon3200/commit/472e76bc241d0721d505486e59d6326bdf19923d))
+
+
 ## v2025.2.11 (2026-01-02)
+
+### Chores
+
+- **release**: Bump version to 2025.2.11
+  ([`f47bc87`](https://github.com/Raptacon/raptacon3200/commit/f47bc87aa236b119cbe811a1ea0d2821e3f2197e))
 
 
 ## v2025.2.10 (2026-01-02)
