@@ -7,15 +7,25 @@ Documentation
 * Raptacon3200 documentation: 
 * Installation: 
 
-Contributing new changes
-========================
+Contributing
+============
 
-1. [Fork this git repository](https://github.com/Raptacon/raptacon3200) to your github account
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push -u origin my-new-feature`)
-5. Create new Pull Request on github
+This project uses **automatic versioning** - just follow branch naming conventions:
 
+| Branch | Version | Example |
+|--------|---------|---------|
+| `feature/*` | Alpha | `2025.2.10a1` |
+| `fix/*` | Beta | `2025.2.10b1` |
+| `main` | Stable | `2025.2.10` |
+
+**Quick start:**
+```bash
+git checkout -b feature/my-feature   # Create branch
+git push -u origin feature/my-feature # Push to get test version
+# Create PR and merge for stable release
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for full details.
 
 Authors
 =======
@@ -27,5 +37,3 @@ Jordan
 Contributors:
 
 * Others
-# test beta versioning
-# full workflow test
